@@ -4,17 +4,13 @@ import cors from 'cors';
 import mongoose from 'mongoose';
 import { userRouter } from './routes/userRouter.js';
 import { messagesRouter } from './routes/messagesRouter.js';
-import 'dotenv/config';
 import { Server } from 'socket.io';
 import { v4 as uuidv4 } from 'uuid';
 
 const app = express();
 const PORT = process.env.PORT || 5500;
 
-app.use(cors({
-  origin: process.env.CLIENT_URL,
-  credentials: true,
-}));
+app.use(cors());
 app.use(express.json());
 app.use('/api/auth', userRouter);
 app.use('/api/chat', messagesRouter);
@@ -38,7 +34,7 @@ const server = app.listen(PORT, () => {
 
 const io = new Server(server, {
   cors: {
-    origin: process.env.CLIENT_URL,
+    origin: 'http://localhost:3000',
     credentials: true,
   }
 })
