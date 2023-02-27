@@ -11,7 +11,10 @@ import { v4 as uuidv4 } from 'uuid';
 const app = express();
 const PORT = process.env.PORT || 5500;
 
-app.use(cors());
+app.use(cors({
+  origin: process.env.CLIENT_URL,
+  credentials: true,
+}));
 app.use(express.json());
 app.use('/api/auth', userRouter);
 app.use('/api/chat', messagesRouter);
