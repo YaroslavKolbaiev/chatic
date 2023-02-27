@@ -50,12 +50,12 @@ io.on('connection', (socket) => {
   socket.on('join chat', (room) => {
     socket.join(room.chat.toString());
     rooms.push(room.chat);
-  })
+  });
 
   socket.on('exit chat', (room) => {
     socket.leave(room.toString());
     rooms = rooms.filter(currentRoom => currentRoom.toString() !== room.toString());
-  })
+  });
 
   socket.on('newMsg', (newMsg) => {
 
