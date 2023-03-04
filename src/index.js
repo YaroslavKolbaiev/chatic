@@ -7,8 +7,10 @@ import { messagesRouter } from './routes/messagesRouter.js';
 import { Server } from 'socket.io';
 import { v4 as uuidv4 } from 'uuid';
 
+// hello
+
 const app = express();
-const PORT = process.env.PORT || 5500;
+const PORT = 5000 || 5500;
 
 app.use(cors());
 app.use(express.json());
@@ -34,7 +36,7 @@ const server = app.listen(PORT, () => {
 
 const io = new Server(server, {
   cors: {
-    origin: process.env.CLIENT_URL,
+    origin: process.env.CLIENT_URL_DEVELOP,
     credentials: true,
   }
 })
