@@ -27,6 +27,10 @@ const userSchema = new Schema({
   avatarImage: {
     type: String,
     default: '',
+  },
+  activationToken: {
+    type: String,
+    required: true
   }
 })
 

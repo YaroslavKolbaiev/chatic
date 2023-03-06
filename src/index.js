@@ -1,21 +1,26 @@
 import 'dotenv/config';
 import express from 'express';
+import cookieParser from 'cookie-parser';
 import cors from 'cors';
 import mongoose from 'mongoose';
 import { userRouter } from './routes/userRouter.js';
 import { messagesRouter } from './routes/messagesRouter.js';
 import { Server } from 'socket.io';
 import { v4 as uuidv4 } from 'uuid';
-
-// hello
+import { errorMiddleware } from './middlewares/errorMiddleware.js';
 
 const app = express();
-const PORT = 5000 || 5500;
+const PORT = process.env.PORT || 5500;
 
-app.use(cors());
+app.use(cookieParser());
+app.use(cors({
+  origin: process.env.CLIENT_URL,
+  credentials: true,
+}));
 app.use(express.json());
 app.use('/api/auth', userRouter);
 app.use('/api/chat', messagesRouter);
+app.use(errorMiddleware);
 
 app.get('/', (req, res) => {
   res.send('Chatic is live...');
@@ -36,7 +41,7 @@ const server = app.listen(PORT, () => {
 
 const io = new Server(server, {
   cors: {
-    origin: process.env.CLIENT_URL_DEVELOP,
+    origin: process.env.CLIENT_URL,
     credentials: true,
   }
 })
