@@ -62,7 +62,7 @@ async function register(req, res, next) {
     activationToken, // aded
   });
 
-  const link = `${process.env.CLIENT_URL_DEVELOP}/activation/${activationToken}`; // added
+  const link = `${process.env.CLIENT_URL}/activation/${activationToken}`; // added
   
   await send({
     // added................
@@ -129,7 +129,6 @@ async function setAvatar(req, res, next) {
 
   res.send({
     isSet: true,
-    // image: avatarImage,
   });
 }
 
