@@ -51,7 +51,7 @@ async function register(req, res, next) {
     throw ApiError.BadRequest("Email is already taken");
   }
 
-  const activationToken = uuidv4(); // added
+  const activationToken = uuidv4();
 
   const hashedPassword = await bcrypt.hash(password, 10);
 
@@ -59,13 +59,12 @@ async function register(req, res, next) {
     email,
     userName,
     password: hashedPassword,
-    activationToken, // aded
+    activationToken,
   });
 
-  const link = `${process.env.CLIENT_URL}/activation/${activationToken}`; // added
+  const link = `${process.env.CLIENT_URL}/activation/${activationToken}`;
   
   await send({
-    // added................
     email,
     subject: "account registration",
     html: `
